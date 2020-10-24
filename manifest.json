@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Eco SuggEstension",
+  "version": "0.0",
+
+  "background": {
+    "persistent": false,
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [{
+    "matches": ["https://www.amazon.ca/*"],
+    "js": ["content.js"]
+  }],
+  "browser_action": {
+    "default_title": "Eco SuggEstension",
+    "default_popup": "popup.html"
+  },
+
+  "permissions": ["activeTab", "storage"]
+}
