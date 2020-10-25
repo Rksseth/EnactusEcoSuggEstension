@@ -119,6 +119,11 @@ function updatePopup(){
 
       let price = document.getElementById('price' + i);
       price.innerText = item.cost;
+
+      let link = document.getElementById('item' + i);
+      link.onclick = function() {
+        window.open(item.url,'_blank');
+      };
     }
 
     setTimeout(function () {
