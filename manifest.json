@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "Eco SuggEstension",
+  "name": "Sustainab.ly",
   "version": "0.0",
 
   "background": {
@@ -12,7 +12,7 @@
     "js": ["content.js"]
   }],
   "browser_action": {
-    "default_title": "Eco SuggEstension",
+    "default_title": "Sustainab.ly",
     "default_popup": "popup.html"
   },
 
