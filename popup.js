@@ -31,17 +31,17 @@ let itemsDict = {
       'url': 'https://earthsuds.co/collections/all/products/starter-pack' 
     },
     {
-      'name': 'Eco-friendly Body Wash',
+      'name': 'Eco-Wash',
       'image': 'https://images-na.ssl-images-amazon.com/images/I/61St-u3WfyL._AC_SL1500_.jpg',
       'cost': '$20.37',
       'company': 'Ethique',
       'url': 'https://www.amazon.ca/Ethique-Eco-Friendly-Bodywash-Orange-Vanilla/dp/B07J2S2GVM/ref=sr_1_12?dchild=1&keywords=eco+friendly+body+wash&qid=1603577621&sr=8-12' 
     },
     {
-      'name': 'Hypoallergenic & Eco-friendly Body Wash',
-      'image': 'https://images-na.ssl-images-amazon.com/images/I/61VOA-pTD6L._AC_SL1080_.jpg',
+      'name': 'Ecosafe Soap',
+      'image': 'https://i.etsystatic.com/10392854/r/il/044402/1185388596/il_570xN.1185388596_k3i2.jpg',
       'cost': '$8.99',
-      'company': 'ATTITUDE',
+      'company': 'Attitude',
       'url': 'https://www.amazon.ca/VERIFIED-Hypoallergenic-Dermatologist-Tear-Free-Collection/dp/B07DQ76VTM/ref=sr_1_8?dchild=1&keywords=eco+friendly+body+wash&qid=1603577695&sr=8-8' 
     }
   ],
@@ -77,18 +77,31 @@ let keysDict = {
   'cutlery': 'cutlery',
   'spoon': 'cutlery',
   'fork': 'cutlery',
+  'forks': 'cutlery',
   "utensil": 'cutlery'
 }
 
-let element = document.getElementById("product-name");
-let price = document.getElementById('price1');
-
 function updatePopup(){
   chrome.storage.sync.get(['product'], function(data) {
-    let productTitle = data.product; // from amazon product title
+    let loading = document.getElementById('loading');
+    let results = document.getElementById('results');
 
+    results.classList.add('d-none');
+    loading.classList.remove('d-none');
+
+    let productTitle = data.product; // from amazon product title
+    console.log(productTitle);
     // choose the key based on amazon page
-    key = "soap";
+    let words = productTitle.split(" ");
+    let key = 'soap'
+    words.forEach(word => {
+      let k = word.toLowerCase();
+      console.log(k, k in keysDict);
+      if (k in keysDict) {
+        key = keysDict[k];
+      }
+    });
+    console.log(key);
     let items = itemsDict[key];
 
     // Loop over 3 items to change 
@@ -107,6 +120,11 @@ function updatePopup(){
       let price = document.getElementById('price' + i);
       price.innerText = item.cost;
     }
+
+    setTimeout(function () {
+      loading.classList.add('d-none');
+      results.classList.remove('d-none');
+    }, 2000);
   });
 }
 
